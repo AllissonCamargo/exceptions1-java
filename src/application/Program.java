@@ -31,8 +31,13 @@ public class Program {
             checkIn = LocalDate.parse(sc.nextLine(), formatter);
             System.out.print("Check-out date (dd/MM/yyyy): ");
             checkOut = LocalDate.parse(sc.nextLine(), formatter);
-            reservation.updateDates(checkIn, checkOut);
-            System.out.println("Reservation: " + reservation);
+            if (checkOut.isAfter(checkIn) || (checkOut.isBefore(checkIn))){
+                System.out.println("Erro! Wrong dates.");
+            } else {
+                reservation.updateDates(checkIn, checkOut);
+                System.out.println("Reservation: " + reservation);
+
+            }
 
         }
         sc.close();

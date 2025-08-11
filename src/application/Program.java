@@ -1,5 +1,4 @@
 package application;
-
 import model.entities.Reservation;
 
 import java.time.LocalDate;

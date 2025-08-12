@@ -8,6 +8,10 @@ import java.util.Scanner;
 
 public class Program {
     public static void main(String[] args) {
+
+        // bad solution
+
+
         Locale.setDefault(Locale.US);
         Scanner sc = new Scanner(System.in);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");

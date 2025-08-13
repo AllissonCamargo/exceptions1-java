@@ -10,7 +10,7 @@ public class Program {
     public static void main(String[] args) {
 
         // bad solution
-
+        // essa solução é ruim pois faz a validação direto no código principal;
 
         Locale.setDefault(Locale.US);
         Scanner sc = new Scanner(System.in);

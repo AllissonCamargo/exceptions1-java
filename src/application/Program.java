@@ -1,6 +1,8 @@
 package application;
 import model.entities.Reservation;
+import model.exceptions.DomainException;
 
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -16,17 +18,15 @@ public class Program {
         Scanner sc = new Scanner(System.in);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-        System.out.print("Room number: ");
-        int roomNumber = sc.nextInt();
-        sc.nextLine();
-        System.out.print("Check-in date (dd/MM/yyyy): ");
-        LocalDate checkIn = LocalDate.parse(sc.nextLine(), formatter);
-        System.out.print("Check-out date (dd/MM/yyyy): ");
-        LocalDate checkOut = LocalDate.parse(sc.nextLine(), formatter);
+        try {
+            System.out.print("Room number: ");
+            int roomNumber = sc.nextInt();
+            sc.nextLine();
+            System.out.print("Check-in date (dd/MM/yyyy): ");
+            LocalDate checkIn = LocalDate.parse(sc.nextLine(), formatter);
+            System.out.print("Check-out date (dd/MM/yyyy): ");
+            LocalDate checkOut = LocalDate.parse(sc.nextLine(), formatter);
 
-        if (!checkOut.isAfter(checkIn)){
-            System.out.print("Error! Check-out date must be after check-in date.");
-        } else {
             Reservation reservation = new Reservation(roomNumber, checkIn, checkOut);
             System.out.println("Reservation: " + reservation);
             System.out.println();
@@ -35,15 +35,18 @@ public class Program {
             checkIn = LocalDate.parse(sc.nextLine(), formatter);
             System.out.print("Check-out date (dd/MM/yyyy): ");
             checkOut = LocalDate.parse(sc.nextLine(), formatter);
-            if (checkOut.isAfter(checkIn) || (checkOut.isBefore(checkIn))){
-                System.out.println("Erro! Wrong dates.");
-            } else {
-                reservation.updateDates(checkIn, checkOut);
-                System.out.println("Reservation: " + reservation);
 
-            }
 
+            reservation.updateDates(checkIn, checkOut);
+            System.out.println("Reservation: " + reservation);
         }
+        catch (DomainException error ){
+            System.out.printf("Error in reservation: " + error.getMessage());
+        }
+        catch (RuntimeException e ) {
+            System.out.println("Unexpected error");
+        }
+
         sc.close();
     }
 }
